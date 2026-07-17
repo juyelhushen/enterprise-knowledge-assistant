@@ -1,0 +1,8 @@
+Why Pydantic Settings?
+
+=> This is the standard approach in modern Python applications because it gives you validation,
+defaults, and typed configuration.
+
+
+
+
