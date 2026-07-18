@@ -6,18 +6,14 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 pdf_path = PROJECT_ROOT / "documents" / "sample.pdf"
 
 
-def main():
+def test_pdf_loader():
     print(pdf_path)
     loader = DocumentLoader()
 
-    documents = loader.load(str(pdf_path))
+    docs = loader.load(str(pdf_path))
 
-    print(f"Loaded {len(documents)} documents.\n")
+    assert len(docs) > 0
 
-    for document in documents:
-        print(document.metadata)
-        print(document.content)
-        print("_" * 50)
+    assert docs[0].metadata["source"] == "sample.pdf"
 
-if __name__ == "__main__":
-    main()
+
