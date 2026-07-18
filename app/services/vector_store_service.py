@@ -34,7 +34,7 @@ class VectorStoreService:
         """
         Delete the current collection.
         """
-        self.vector_store.delete_collection();
+        self.vector_store.delete_collection()
 
     def add_chunks(self, chunks: list[ChunkData]):
         documents = []
