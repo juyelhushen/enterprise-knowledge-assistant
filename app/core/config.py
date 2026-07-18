@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     EMBEDDING_MODEL: str
     VECTOR_DB_PATH: str
     TOP_K: int = 5
+    CHUNK_SIZE: int = 1000
+    CHUNK_OVERLAP: int = 200
 
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env",
