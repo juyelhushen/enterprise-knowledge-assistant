@@ -1,0 +1,17 @@
+Employee Handbook
+
+Welcome to Acme Technologies.
+
+Annual Leave
+- Employees receive 20 days of paid annual leave per calendar year.
+- Up to 5 unused leave days may be carried forward.
+
+Work From Home
+- Employees may work from home up to 2 days per week with manager approval.
+
+Working Hours
+- Standard working hours are 9:00 AM to 6:00 PM, Monday through Friday.
+
+Code of Conduct
+- Treat colleagues with respect.
+- Protect confidential company information.

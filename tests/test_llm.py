@@ -1,15 +1,12 @@
 from app.services.llm_service import LLMService
 
 
-def main():
+def test_llm_connection():
     service = LLMService()
 
     response = service.invoke(
         "Reply with exactly one word: Hello"
     )
 
-    print(response.content)
+    assert "Hello" in response.content
 
-
-if __name__ == "__main__":
-    main()
