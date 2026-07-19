@@ -1,5 +1,3 @@
-from unittest import result
-
 from app.models.chunk import ChunkData
 from app.services.vector_store_service import VectorStoreService
 

@@ -1,5 +1,3 @@
-from chromadb import ingest
-
 from app.ingestion.ingestion_service import IngestionService
 from app.services.retriever_service import RetrieverService
 from app.services.vector_store_service import VectorStoreService
