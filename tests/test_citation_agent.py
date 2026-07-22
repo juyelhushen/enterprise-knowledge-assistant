@@ -31,3 +31,41 @@ def test_citation_agent():
     assert len(result["citations"]) == 1
     assert result["citations"][0]["source"] == "sample.pdf"
     assert result["citations"][0]["page"] == 1
+
+
+def test_citation_agent_removes_duplicate_citations():
+    chunk1 = ChunkData(
+        id="1",
+        content="Leave policy",
+        metadata={
+            "source": "sample.pdf",
+            "page": 1,
+            "chunk_index": 0
+        }
+    )
+
+    chunk2 = ChunkData(
+        id="2",
+        content="Another chunk from same page",
+        metadata={
+            "source": "sample.pdf",
+            "page": 1,
+            "chunk_index": 1
+        }
+    )
+
+    state: GraphState = {
+        "question": "Leave policy",
+        "retrieved_chunks": [chunk1, chunk2],
+        "prompt": "",
+        "answer": "20 days.",
+        "citations": []
+    }
+
+    agent = CitationAgent()
+
+    result = agent(state)
+
+    print(result["citations"])
+
+    assert len(result["citations"]) == 1
