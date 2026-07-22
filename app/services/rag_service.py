@@ -27,4 +27,4 @@ class RAGService:
 
         response = self.llm.invoke(prompt)
 
-        return response.content
+        return response

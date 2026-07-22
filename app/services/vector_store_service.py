@@ -11,11 +11,14 @@ class VectorStoreService:
 
     def __init__(self):
         self.embedding_service = EmbeddingService()
+        self.vector_store = self._create_vector_store()
 
-        self.vector_store = Chroma(
+
+    def _create_vector_store(self) -> Chroma:
+        return Chroma(
             collection_name=self.COLLECTION_NAME,
             embedding_function=self.embedding_service.embedding_model,
-            persist_directory=settings.VECTOR_DB_PATH
+            persist_directory=settings.VECTOR_DB_PATH,
         )
 
     def add_documents(self, documents):
@@ -32,9 +35,10 @@ class VectorStoreService:
 
     def reset(self):
         """
-        Delete the current collection.
+        Delete the current collection and recreate it.
         """
         self.vector_store.delete_collection()
+        self.vector_store = self._create_vector_store()
 
     def add_chunks(self, chunks: list[ChunkData]):
         documents = []

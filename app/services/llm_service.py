@@ -1,3 +1,4 @@
+from langchain_core.messages import AIMessage
 from langchain_ollama import ChatOllama
 
 from app.core.config import settings
@@ -11,5 +12,6 @@ class LLMService:
             temperature=0
         )
 
-    def invoke(self, prompt: str):
-        return self.llm.invoke(prompt)
+    def invoke(self, prompt: str) -> str:
+        response: AIMessage = self.llm.invoke(prompt)
+        return response.content
