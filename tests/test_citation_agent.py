@@ -69,3 +69,37 @@ def test_citation_agent_removes_duplicate_citations():
     print(result["citations"])
 
     assert len(result["citations"]) == 1
+
+def test_citation_agent_multiple_sources():
+
+    chunk1 = ChunkData(
+        id="1",
+        content="Leave policy",
+        metadata={
+            "source": "employee_handbook.pdf",
+            "page": 2,
+            "chunk_index": 0
+        }
+    )
+
+    chunk2 = ChunkData(
+        id="2",
+        content="Travel reimbursement",
+        metadata={
+            "source": "travel_policy.pdf",
+            "page": 5,
+            "chunk_index": 0
+        }
+    )
+
+    state: GraphState = {
+        "question": "Leave and travel policy",
+        "retrieved_chunks": [chunk1, chunk2],
+        "prompt": "",
+        "answer": "...",
+        "citations": []
+    }
+
+    result = CitationAgent()(state)
+
+    assert len(result["citations"]) == 2
