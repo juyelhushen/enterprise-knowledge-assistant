@@ -1,6 +1,5 @@
 from langchain_core.documents import Document
 from langchain_chroma import Chroma
-from langchain_core.vectorstores import VectorStore
 
 from app.core.config import settings
 from app.models.chunk import ChunkData
