@@ -8,6 +8,7 @@ from app.graph.state import GraphState
 
 
 def create_workflow():
+
     builder = StateGraph(GraphState)
 
     builder.add_node("retrieve", RetrievalAgent())

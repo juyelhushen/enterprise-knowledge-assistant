@@ -8,6 +8,8 @@ class RetrievalAgent:
         self.retriever = RetrieverService()
 
     def __call__(self, state: GraphState) -> GraphState:
+        print("RetrievalAgent")
+
         chunks = self.retriever.retrieve(state["question"])
 
         state["retrieved_chunks"] = chunks

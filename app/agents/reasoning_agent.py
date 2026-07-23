@@ -9,6 +9,7 @@ class ReasoningAgent:
 
 
     def __call__(self, state: GraphState) -> GraphState:
+        print("ReasoningAgent")
 
         prompt, answer = self.reasoning_service.generate_answer(
             question=state["question"],

@@ -9,6 +9,8 @@ class CitationAgent:
 
     def __call__(self, state: GraphState) -> GraphState:
 
+        print("CitationAgent")
+
         seen = set()
         citations = []
 

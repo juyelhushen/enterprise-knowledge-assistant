@@ -1,9 +1,8 @@
-from attr import dataclass
+from pydantic import BaseModel
 
 from app.models.citation import Citation
 
 
-@dataclass(slots=True)
-class WorkflowResponse:
+class WorkflowResponse(BaseModel):
     answer: str
     citations: list[Citation]
