@@ -14,4 +14,4 @@ def test_workflow_service():
     assert "20" in response.answer
 
     assert len(response.citations) == 1
-    assert response.citations[0]["source"] == "sample.pdf"
+    assert response.citations[0].source == "sample.pdf"

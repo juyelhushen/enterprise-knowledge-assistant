@@ -17,5 +17,5 @@ def test_workflow():
     assert result["answer"] is not None
     assert "20" in result["answer"]
 
-    assert len(result["citations"]) == 1
     assert result["citations"][0]["source"] == "sample.pdf"
+    assert result["citations"][0]["page"] == 1

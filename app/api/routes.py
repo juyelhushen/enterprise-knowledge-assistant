@@ -1,18 +1,15 @@
 from fastapi import APIRouter
-
 from app.models.ask_request import AskRequest
+from app.models.workflow_response import WorkflowResponse
 from app.services.workflow_service import WorkflowService
-router = APIRouter()
 
+
+router = APIRouter()
 workflow_service = WorkflowService()
 
-@router.post("/ask")
+@router.post(
+    "/ask",
+    response_model=WorkflowResponse,
+)
 def ask(request: AskRequest):
-
-    print("Received request")
-
-    response = workflow_service.ask(request.question)
-
-    print("Returning response")
-
-    return response
+    return workflow_service.ask(request.question)
