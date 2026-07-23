@@ -17,9 +17,7 @@ def test_rag_answers_question(sample_pdf):
 
     rag = RAGService()
 
-    answer = rag.answer(
-        "How many annual leave days do employees receive?"
-    )
+    answer = rag.answer("How many annual leave days do employees receive?")
 
     assert isinstance(answer, str)
 

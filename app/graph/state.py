@@ -1,4 +1,5 @@
 from typing import TypedDict
+
 from app.models.chunk import ChunkData
 
 
@@ -10,4 +11,3 @@ class GraphState(TypedDict):
     answer: str
 
     citations: list[dict]
-

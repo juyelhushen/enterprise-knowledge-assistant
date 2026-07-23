@@ -15,7 +15,6 @@ class CitationAgent:
         citations = []
 
         for chunk in state["retrieved_chunks"]:
-
             citation = (
                 chunk.metadata.get("source"),
                 chunk.metadata.get("page"),

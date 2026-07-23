@@ -3,7 +3,6 @@ from app.models.document import DocumentData
 
 
 class RAGDebugger:
-
     @staticmethod
     def print_documents(documents: list[DocumentData]):
 
@@ -12,7 +11,6 @@ class RAGDebugger:
         print("=" * 80)
 
         for index, document in enumerate(documents, start=1):
-
             print(f"\nDocument {index}")
 
             print(f"Metadata : {document.metadata}")

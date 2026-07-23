@@ -3,10 +3,8 @@ from app.services.reasoning_service import ReasoningService
 
 
 class ReasoningAgent:
-
     def __init__(self):
         self.reasoning_service = ReasoningService()
-
 
     def __call__(self, state: GraphState) -> GraphState:
         print("ReasoningAgent")

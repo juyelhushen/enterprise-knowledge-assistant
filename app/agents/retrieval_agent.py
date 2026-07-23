@@ -3,7 +3,6 @@ from app.services.retriever_service import RetrieverService
 
 
 class RetrievalAgent:
-
     def __init__(self):
         self.retriever = RetrieverService()
 

@@ -16,9 +16,9 @@ class PromptBuilder:
     """.strip()
 
     def build(
-            self,
-            question: str,
-            chunks: list[ChunkData],
+        self,
+        question: str,
+        chunks: list[ChunkData],
     ) -> str:
         context = self._build_context(chunks)
 
@@ -35,10 +35,7 @@ Question:
 Answer:    
 """.strip()
 
-    def _build_context(
-            self,
-            chunks: list[ChunkData]
-    ) -> str:
+    def _build_context(self, chunks: list[ChunkData]) -> str:
         sections = []
 
         for index, chunk in enumerate(chunks, start=1):

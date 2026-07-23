@@ -1,11 +1,12 @@
 from fastapi import APIRouter
+
 from app.models.ask_request import AskRequest
 from app.models.workflow_response import WorkflowResponse
 from app.services.workflow_service import WorkflowService
 
-
 router = APIRouter()
 workflow_service = WorkflowService()
+
 
 @router.post(
     "/ask",

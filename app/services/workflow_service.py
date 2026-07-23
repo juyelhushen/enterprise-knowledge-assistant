@@ -29,4 +29,3 @@ class WorkflowService:
             answer=state["answer"],
             citations=state["citations"],
         )
-

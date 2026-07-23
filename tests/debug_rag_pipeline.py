@@ -12,6 +12,7 @@ from app.utils.rag_debugger import RAGDebugger
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sample_pdf = PROJECT_ROOT / "tests" / "resources" / "sample.pdf"
 
+
 def main():
 
     loader = DocumentLoader()
@@ -40,9 +41,7 @@ def main():
 
     retriever = RetrieverService()
 
-    retrieved = retriever.retrieve(
-        "Who won the FIFA World Cup?"
-    )
+    retrieved = retriever.retrieve("Who won the FIFA World Cup?")
 
     RAGDebugger.print_retrieval(retrieved)
 
@@ -60,6 +59,7 @@ def main():
     response = llm.invoke(prompt)
 
     RAGDebugger.print_response(response.content)
+
 
 if __name__ == "__main__":
     main()

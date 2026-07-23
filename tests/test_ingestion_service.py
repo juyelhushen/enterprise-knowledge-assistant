@@ -16,8 +16,6 @@ def test_ingestion_pipeline(sample_pdf):
     assert result["documents"] == 1
     assert result["chunks"] > 0
 
-    results = store.similarity_search(
-        "annual leave"
-    )
+    results = store.similarity_search("annual leave")
 
     assert len(results) > 0

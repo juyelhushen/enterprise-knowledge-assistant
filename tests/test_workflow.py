@@ -5,11 +5,7 @@ def test_workflow():
 
     workflow = create_workflow()
 
-    result = workflow.invoke(
-        {
-            "question": "How many annual leave days?"
-        }
-    )
+    result = workflow.invoke({"question": "How many annual leave days?"})
 
     print("\n========== RESULT ==========\n")
     print(result)

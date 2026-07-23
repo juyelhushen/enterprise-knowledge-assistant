@@ -16,9 +16,8 @@ class Settings(BaseSettings):
     CHUNK_OVERLAP: int
 
     model_config = SettingsConfigDict(
-        env_file=BASE_DIR / ".env",
-        case_sensitive=True,
-        extra="ignore"
+        env_file=BASE_DIR / ".env", case_sensitive=True, extra="ignore"
     )
+
 
 settings = Settings()

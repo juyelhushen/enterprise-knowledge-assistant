@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Any
 
 from attr import dataclass
 
@@ -6,4 +6,4 @@ from attr import dataclass
 @dataclass(slots=True)
 class DocumentData:
     content: str
-    metadata: Dict[str, Any]
+    metadata: dict[str, Any]

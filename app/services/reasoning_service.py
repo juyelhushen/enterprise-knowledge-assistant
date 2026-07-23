@@ -23,10 +23,8 @@ class ReasoningService:
         self.llm_service = LLMService()
 
     def generate_answer(
-            self,
-            question: str,
-            chunks: list[ChunkData]
-    ) -> tuple[str,str]:
+        self, question: str, chunks: list[ChunkData]
+    ) -> tuple[str, str]:
         """
         Generates an answer using the retrieved chunks.
 
@@ -36,10 +34,7 @@ class ReasoningService:
 
         print("Building prompt")
 
-        prompt = self.prompt_builder.build(
-            question=question,
-            chunks= chunks
-        )
+        prompt = self.prompt_builder.build(question=question, chunks=chunks)
         print("Prompt built")
 
         print("Calling LLM...")

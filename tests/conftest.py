@@ -8,6 +8,8 @@ from app.services.embedding_service import EmbeddingService
 from app.services.vector_store_service import VectorStoreService
 
 
+
+
 @pytest.fixture(scope="session")
 def sample_pdf():
     return Path("tests/resources/sample.pdf")

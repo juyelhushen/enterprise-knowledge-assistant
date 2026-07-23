@@ -4,7 +4,6 @@ from app.services.vector_store_service import VectorStoreService
 
 
 class IngestionService:
-
     def __init__(self):
         self.loader = DocumentLoader()
         self.chunker = ChunkingService()

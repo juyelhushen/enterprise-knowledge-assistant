@@ -10,9 +10,7 @@ def test_similarity_search(
 
     vector_store.add_chunks(chunks)
 
-    results = vector_store.similarity_search(
-        "How many annual leave days?"
-    )
+    results = vector_store.similarity_search("How many annual leave days?")
 
     assert len(results) > 0
 
