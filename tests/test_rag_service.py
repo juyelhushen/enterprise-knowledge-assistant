@@ -1,15 +1,18 @@
+import logging
+
 from app.ingestion.ingestion_service import IngestionService
 from app.services.rag_service import RAGService
 from app.services.vector_store_service import VectorStoreService
 
+logger = logging.getLogger(__name__)
 
 def test_rag_answers_question(sample_pdf):
     store = VectorStoreService()
 
     try:
         store.reset()
-    except Exception:
-        pass
+    except RuntimeError as e:
+        logger.warning("Vector store reset failed: %s", e)
 
     ingestion = IngestionService()
 
