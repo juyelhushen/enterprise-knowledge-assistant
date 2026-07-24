@@ -7,11 +7,7 @@ def test_citation_agent():
     chunk = ChunkData(
         id="chunk-1",
         content="Employees receive 20 days of paid annual leave.",
-        metadata={
-            "source": "sample.pdf",
-            "page": 1,
-            "chunk_index": 0
-        }
+        metadata={"source": "sample.pdf", "page": 1, "chunk_index": 0},
     )
 
     state: GraphState = {
@@ -19,7 +15,7 @@ def test_citation_agent():
         "retrieved_chunks": [chunk],
         "prompt": "",
         "answer": "20 days.",
-        "citations": []
+        "citations": [],
     }
 
     agent = CitationAgent()
@@ -37,21 +33,13 @@ def test_citation_agent_removes_duplicate_citations():
     chunk1 = ChunkData(
         id="1",
         content="Leave policy",
-        metadata={
-            "source": "sample.pdf",
-            "page": 1,
-            "chunk_index": 0
-        }
+        metadata={"source": "sample.pdf", "page": 1, "chunk_index": 0},
     )
 
     chunk2 = ChunkData(
         id="2",
         content="Another chunk from same page",
-        metadata={
-            "source": "sample.pdf",
-            "page": 1,
-            "chunk_index": 1
-        }
+        metadata={"source": "sample.pdf", "page": 1, "chunk_index": 1},
     )
 
     state: GraphState = {
@@ -59,7 +47,7 @@ def test_citation_agent_removes_duplicate_citations():
         "retrieved_chunks": [chunk1, chunk2],
         "prompt": "",
         "answer": "20 days.",
-        "citations": []
+        "citations": [],
     }
 
     agent = CitationAgent()
@@ -70,26 +58,19 @@ def test_citation_agent_removes_duplicate_citations():
 
     assert len(result["citations"]) == 1
 
+
 def test_citation_agent_multiple_sources():
 
     chunk1 = ChunkData(
         id="1",
         content="Leave policy",
-        metadata={
-            "source": "employee_handbook.pdf",
-            "page": 2,
-            "chunk_index": 0
-        }
+        metadata={"source": "employee_handbook.pdf", "page": 2, "chunk_index": 0},
     )
 
     chunk2 = ChunkData(
         id="2",
         content="Travel reimbursement",
-        metadata={
-            "source": "travel_policy.pdf",
-            "page": 5,
-            "chunk_index": 0
-        }
+        metadata={"source": "travel_policy.pdf", "page": 5, "chunk_index": 0},
     )
 
     state: GraphState = {
@@ -97,7 +78,7 @@ def test_citation_agent_multiple_sources():
         "retrieved_chunks": [chunk1, chunk2],
         "prompt": "",
         "answer": "...",
-        "citations": []
+        "citations": [],
     }
 
     result = CitationAgent()(state)

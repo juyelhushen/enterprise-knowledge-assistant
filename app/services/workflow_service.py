@@ -14,14 +14,18 @@ class WorkflowService:
         self.workflow = create_workflow()
 
     def ask(self, question: str) -> WorkflowResponse:
+
+        print("Workflow started")
+
         state = self.workflow.invoke(
             {
                 "question": question,
             }
         )
 
+        print("Workflow finished")
+
         return WorkflowResponse(
             answer=state["answer"],
             citations=state["citations"],
         )
-

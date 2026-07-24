@@ -10,6 +10,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 SAMPLE_PDF = PROJECT_ROOT / "tests" / "resources" / "sample.pdf"
 
+
 def test_generate_answer():
     print("1. Creating services...")
     loader = DocumentLoader()
@@ -17,7 +18,6 @@ def test_generate_answer():
     vector_store = VectorStoreService()
 
     vector_store.reset()
-
 
     print("2. Loading document...")
     documents = loader.load(SAMPLE_PDF)
@@ -30,9 +30,7 @@ def test_generate_answer():
 
     print("5. Retrieving...")
     retriever = RetrieverService()
-    retrieved_chunks = retriever.retrieve(
-        "How many annual leave days?"
-    )
+    retrieved_chunks = retriever.retrieve("How many annual leave days?")
 
     print("Retrieved:", len(retrieved_chunks))
 
@@ -41,9 +39,11 @@ def test_generate_answer():
 
     print("7. Calling LLM...")
     prompt, answer = reasoning_service.generate_answer(
-        question="How many annual leave days?",
-        chunks=retrieved_chunks
+        question="How many annual leave days?", chunks=retrieved_chunks
     )
+
+    print("Prompt:")
+    print(prompt)
 
     print("8. Finished")
 

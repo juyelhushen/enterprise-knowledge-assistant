@@ -1,6 +1,10 @@
+import logging
+
 from app.ingestion.ingestion_service import IngestionService
 from app.services.retriever_service import RetrieverService
 from app.services.vector_store_service import VectorStoreService
+
+logger = logging.getLogger(__name__)
 
 
 def test_retrieve_policy(sample_pdf):
@@ -8,8 +12,8 @@ def test_retrieve_policy(sample_pdf):
 
     try:
         store.reset()
-    except Exception:
-        pass
+    except RuntimeError as e:
+        logger.warning("Vector store reset failed: %s", e)
 
     store = VectorStoreService()
     ingesttion = IngestionService()
@@ -20,11 +24,10 @@ def test_retrieve_policy(sample_pdf):
 
     chunks = retriever.retrieve("How many annual leave days do employees receive?")
 
-    print("length-------------",len(chunks))
+    print("length-------------", len(chunks))
 
     for chunk in chunks:
         print("chunk ::::::::::::", chunk)
-
 
     assert len(chunks) > 0
     assert "20 days" in chunks[0].content

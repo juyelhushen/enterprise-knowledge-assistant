@@ -1,7 +1,6 @@
-from attr import dataclass
+from pydantic import BaseModel
 
 
-@dataclass(slots=True)
-class Citation:
+class Citation(BaseModel):
     source: str
     page: int

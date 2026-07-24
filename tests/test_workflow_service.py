@@ -4,9 +4,7 @@ from app.services.workflow_service import WorkflowService
 def test_workflow_service():
     service = WorkflowService()
 
-    response = service.ask(
-        "How many annual leave days?"
-    )
+    response = service.ask("How many annual leave days?")
 
     print(response)
 
@@ -14,4 +12,4 @@ def test_workflow_service():
     assert "20" in response.answer
 
     assert len(response.citations) == 1
-    assert response.citations[0]["source"] == "sample.pdf"
+    assert response.citations[0].source == "sample.pdf"

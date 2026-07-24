@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 import pytest
@@ -7,6 +8,7 @@ from app.ingestion.document_loader import DocumentLoader
 from app.services.embedding_service import EmbeddingService
 from app.services.vector_store_service import VectorStoreService
 
+logger = logging.getLogger(__name__)
 
 @pytest.fixture(scope="session")
 def sample_pdf():
@@ -35,7 +37,7 @@ def vector_store():
     # Clean database before each test
     try:
         store.reset()
-    except Exception:
-        pass
+    except RuntimeError as e:
+        logger.warning("Vector store reset failed: %s", e)
 
     return VectorStoreService()

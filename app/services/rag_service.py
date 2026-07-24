@@ -4,15 +4,14 @@ from app.services.retriever_service import RetrieverService
 
 
 class RAGService:
-
     def __init__(self):
         self.retriever = RetrieverService()
         self.prompt_builder = PromptBuilder()
         self.llm = LLMService()
 
     def answer(
-            self,
-            question: str,
+        self,
+        question: str,
     ) -> str:
 
         chunks = self.retriever.retrieve(question)

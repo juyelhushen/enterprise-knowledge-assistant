@@ -5,11 +5,7 @@ def test_workflow():
 
     workflow = create_workflow()
 
-    result = workflow.invoke(
-        {
-            "question": "How many annual leave days?"
-        }
-    )
+    result = workflow.invoke({"question": "How many annual leave days?"})
 
     print("\n========== RESULT ==========\n")
     print(result)
@@ -17,5 +13,5 @@ def test_workflow():
     assert result["answer"] is not None
     assert "20" in result["answer"]
 
-    assert len(result["citations"]) == 1
     assert result["citations"][0]["source"] == "sample.pdf"
+    assert result["citations"][0]["page"] == 1

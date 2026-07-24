@@ -1,5 +1,5 @@
-from langchain_core.documents import Document
 from langchain_chroma import Chroma
+from langchain_core.documents import Document
 
 from app.core.config import settings
 from app.models.chunk import ChunkData
@@ -12,7 +12,6 @@ class VectorStoreService:
     def __init__(self):
         self.embedding_service = EmbeddingService()
         self.vector_store = self._create_vector_store()
-
 
     def _create_vector_store(self) -> Chroma:
         return Chroma(

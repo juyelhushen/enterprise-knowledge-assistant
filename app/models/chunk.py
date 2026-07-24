@@ -1,4 +1,5 @@
-from typing import Dict, Any
+from typing import Any
+
 from attr import dataclass
 
 
@@ -6,5 +7,4 @@ from attr import dataclass
 class ChunkData:
     id: str
     content: str
-    metadata: Dict[str, Any]
-    
+    metadata: dict[str, Any]

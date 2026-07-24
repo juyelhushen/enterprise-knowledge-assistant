@@ -9,11 +9,12 @@ class CitationAgent:
 
     def __call__(self, state: GraphState) -> GraphState:
 
+        print("CitationAgent")
+
         seen = set()
         citations = []
 
         for chunk in state["retrieved_chunks"]:
-
             citation = (
                 chunk.metadata.get("source"),
                 chunk.metadata.get("page"),

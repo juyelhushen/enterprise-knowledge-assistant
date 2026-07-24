@@ -8,7 +8,6 @@ from app.models.document import DocumentData
 
 
 class DocumentLoader:
-
     def load(self, file_path: Path) -> list[DocumentData]:
         path = Path(file_path)
 
@@ -47,9 +46,7 @@ class DocumentLoader:
         doc = DocxDocument(file_path)
 
         text = "\n".join(
-            paragraph.text
-            for paragraph in doc.paragraphs
-            if paragraph.text.strip()
+            paragraph.text for paragraph in doc.paragraphs if paragraph.text.strip()
         )
 
         return [
@@ -57,10 +54,9 @@ class DocumentLoader:
                 content=text,
                 metadata={
                     "source": file_path.name,
-                }
+                },
             )
         ]
-
 
     def _load_txt(self, file_path: Path) -> list[DocumentData]:
         return [
@@ -68,6 +64,6 @@ class DocumentLoader:
                 content=file_path.read_text(encoding="utf-8"),
                 metadata={
                     "source": file_path.name,
-                }
+                },
             )
         ]
