@@ -2,7 +2,7 @@ from datetime import UTC, datetime
 
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from models.error_response import ErrorResponse
+from app.models.error_response import ErrorResponse
 
 from app.exceptions.custom_exceptions import (
     DocumentException,

@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class ErrorResponse(BaseModel):
-    timestamp: datetime
+    timestamp: datetime.datetime
     status: int
     error: str
     message: str

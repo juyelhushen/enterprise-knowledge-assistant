@@ -1,9 +1,8 @@
-from exceptions.custom_exceptions import (
-    DocumentException,
-    LLMException,
-    RetrievalException,
-)
-from exceptions.handlers import (
+from app.exceptions.custom_exceptions import LLMException
+from app.exceptions.custom_exceptions import RetrievalException
+from app.exceptions.custom_exceptions import DocumentException
+
+from app.exceptions.handlers import (
     document_exception_handler,
     generic_exception_handler,
     llm_exception_handler,
