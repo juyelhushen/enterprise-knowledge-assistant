@@ -1,10 +1,10 @@
-import logging
 
+from app.common.logger import get_logger
 from app.ingestion.ingestion_service import IngestionService
 from app.services.retriever_service import RetrieverService
 from app.services.vector_store_service import VectorStoreService
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 def test_retrieve_policy(sample_pdf):

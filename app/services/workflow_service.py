@@ -1,8 +1,9 @@
+from app.common.logger import get_logger
 from app.graph.workflow import create_workflow
 from app.models.workflow_response import WorkflowResponse
-from common.logger import get_logger
 
 logger = get_logger(__name__)
+
 
 class WorkflowService:
     """
@@ -26,7 +27,6 @@ class WorkflowService:
         )
 
         logger.info("Workflow finished")
-
 
         return WorkflowResponse(
             answer=state["answer"],

@@ -1,7 +1,8 @@
+from app.common.logger import get_logger
 from app.graph.state import GraphState
-from common.logger import get_logger
 
 logger = get_logger(__name__)
+
 
 class CitationAgent:
     """
