@@ -1,4 +1,7 @@
+from app.common.logger import get_logger
 from app.graph.state import GraphState
+
+logger = get_logger(__name__)
 
 
 class CitationAgent:
@@ -9,7 +12,7 @@ class CitationAgent:
 
     def __call__(self, state: GraphState) -> GraphState:
 
-        print("CitationAgent")
+        logger.info("CitationAgent")
 
         seen = set()
         citations = []

@@ -1,3 +1,14 @@
+from exceptions.custom_exceptions import (
+    DocumentException,
+    LLMException,
+    RetrievalException,
+)
+from exceptions.handlers import (
+    document_exception_handler,
+    generic_exception_handler,
+    llm_exception_handler,
+    retrieval_exception_handler,
+)
 from fastapi import FastAPI
 
 from app.api.routes import router
@@ -8,3 +19,11 @@ app = FastAPI(
 )
 
 app.include_router(router)
+
+app.add_exception_handler(LLMException, llm_exception_handler)
+
+app.add_exception_handler(RetrievalException, retrieval_exception_handler)
+
+app.add_exception_handler(DocumentException, document_exception_handler)
+
+app.add_exception_handler(Exception, generic_exception_handler)

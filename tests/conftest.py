@@ -10,6 +10,7 @@ from app.services.vector_store_service import VectorStoreService
 
 logger = logging.getLogger(__name__)
 
+
 @pytest.fixture(scope="session")
 def sample_pdf():
     return Path("tests/resources/sample.pdf")

@@ -1,9 +1,9 @@
-import logging
 
+from app.common.logger import get_logger
 from app.ingestion.ingestion_service import IngestionService
 from app.services.vector_store_service import VectorStoreService
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 def test_ingestion_pipeline(sample_pdf):
     store = VectorStoreService()

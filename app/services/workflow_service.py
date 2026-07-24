@@ -1,5 +1,8 @@
+from app.common.logger import get_logger
 from app.graph.workflow import create_workflow
 from app.models.workflow_response import WorkflowResponse
+
+logger = get_logger(__name__)
 
 
 class WorkflowService:
@@ -15,7 +18,7 @@ class WorkflowService:
 
     def ask(self, question: str) -> WorkflowResponse:
 
-        print("Workflow started")
+        logger.info("Workflow started")
 
         state = self.workflow.invoke(
             {
@@ -23,7 +26,7 @@ class WorkflowService:
             }
         )
 
-        print("Workflow finished")
+        logger.info("Workflow finished")
 
         return WorkflowResponse(
             answer=state["answer"],

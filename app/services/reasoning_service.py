@@ -1,6 +1,9 @@
+from app.common.logger import get_logger
 from app.models.chunk import ChunkData
 from app.prompts.prompt_builder import PromptBuilder
 from app.services.llm_service import LLMService
+
+logger = get_logger(__name__)
 
 
 class ReasoningService:
@@ -32,15 +35,15 @@ class ReasoningService:
             tuple(prompt, answer)
         """
 
-        print("Building prompt")
+        logger.info("Building prompt")
 
         prompt = self.prompt_builder.build(question=question, chunks=chunks)
-        print("Prompt built")
+        logger.info("Prompt built")
 
-        print("Calling LLM...")
+        logger.info("Calling LLM...")
 
         answer = self.llm_service.invoke(prompt)
 
-        print("LLM returned")
+        logger.info("LLM returned")
 
         return prompt, answer
