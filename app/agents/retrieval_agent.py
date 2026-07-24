@@ -1,13 +1,15 @@
 from app.graph.state import GraphState
 from app.services.retriever_service import RetrieverService
+from common.logger import get_logger
 
+logger = get_logger(__name__)
 
 class RetrievalAgent:
     def __init__(self):
         self.retriever = RetrieverService()
 
     def __call__(self, state: GraphState) -> GraphState:
-        print("RetrievalAgent")
+        logger.info("RetrievalAgent")
 
         chunks = self.retriever.retrieve(state["question"])
 
