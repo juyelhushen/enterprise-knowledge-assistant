@@ -2,13 +2,13 @@ from datetime import UTC, datetime
 
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from models.error_response import ErrorResponse
 
 from app.exceptions.custom_exceptions import (
     DocumentException,
     LLMException,
     RetrievalException,
 )
+from app.models.error_response import ErrorResponse
 
 
 async def llm_exception_handler(request: Request, exc: LLMException):
