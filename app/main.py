@@ -1,16 +1,17 @@
-from app.exceptions.custom_exceptions import LLMException
-from app.exceptions.custom_exceptions import RetrievalException
-from app.exceptions.custom_exceptions import DocumentException
+from fastapi import FastAPI
 
+from app.api.routes import router
+from app.exceptions.custom_exceptions import (
+    DocumentException,
+    LLMException,
+    RetrievalException,
+)
 from app.exceptions.handlers import (
     document_exception_handler,
     generic_exception_handler,
     llm_exception_handler,
     retrieval_exception_handler,
 )
-from fastapi import FastAPI
-
-from app.api.routes import router
 
 app = FastAPI(
     title="Enterprise knowledge Assistant",
