@@ -1,21 +1,25 @@
 from app.models.chunk import ChunkData
-from app.services.vector_store_service import VectorStoreService
+from app.repositories.vector_store_repository import VectorStoreRepository
 
 
 class RetrieverService:
-    def __init__(self):
-        self.vector_store = VectorStoreService()
+
+    def __init__(
+            self,
+            repository: VectorStoreRepository
+    ):
+        self.repository = repository
 
     def retrieve(
         self,
         question: str,
-        top_k: int | None = None,
+        top_k: int = 3,
     ) -> list[ChunkData]:
-        results = self.vector_store.similarity_search(question, k=top_k)
+        documents = self.repository.similarity_search(question, k=top_k)
 
         chunks = []
 
-        for doc in results:
+        for doc in documents:
             chunks.append(
                 ChunkData(
                     id=doc.id,

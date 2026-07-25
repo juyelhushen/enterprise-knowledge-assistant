@@ -4,10 +4,13 @@ from app.services.retriever_service import RetrieverService
 
 logger = get_logger(__name__)
 
-
 class RetrievalAgent:
-    def __init__(self):
-        self.retriever = RetrieverService()
+
+    def __init__(
+            self,
+            retriever: RetrieverService,
+    ):
+        self.retriever = retriever
 
     def __call__(self, state: GraphState) -> GraphState:
         logger.info("RetrievalAgent")

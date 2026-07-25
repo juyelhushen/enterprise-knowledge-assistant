@@ -1,8 +1,8 @@
 from app.models.document import DocumentData
 
 
-def test_load_pdf(loader, sample_pdf):
-    documents = loader.load(str(sample_pdf))
+def test_load_pdf(document_loader, sample_pdf):
+    documents = document_loader.load(str(sample_pdf))
 
     assert len(documents) > 0
 

@@ -1,18 +1,30 @@
 from app.ingestion.chunking_service import ChunkingService
 from app.ingestion.document_loader import DocumentLoader
-from app.services.vector_store_service import VectorStoreService
+from app.mapper.document_mapper import DocumentMapper
+from app.repositories.vector_store_repository import VectorStoreRepository
 
 
 class IngestionService:
-    def __init__(self):
-        self.loader = DocumentLoader()
-        self.chunker = ChunkingService()
-        self.vector_store = VectorStoreService()
+
+    def __init__(
+        self,
+        loader: DocumentLoader,
+        chunker: ChunkingService,
+        repository: VectorStoreRepository
+    ):
+        self.loader = loader
+        self.chunker = chunker
+        self.repository = repository
 
     def ingest(self, file_path: str):
+
         documents = self.loader.load(file_path)
+
         chunks = self.chunker.chunk_documents(documents)
-        self.vector_store.add_chunks(chunks)
+
+        docs = DocumentMapper.to_documents(chunks)
+
+        self.repository.add_documents(docs)
 
         return {
             "documents": len(documents),

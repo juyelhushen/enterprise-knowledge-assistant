@@ -1,28 +1,17 @@
-
 from app.common.logger import get_logger
-from app.ingestion.ingestion_service import IngestionService
-from app.services.retriever_service import RetrieverService
-from app.services.vector_store_service import VectorStoreService
+from app.core.config import settings
 
 logger = get_logger(__name__)
 
 
-def test_retrieve_policy(sample_pdf):
-    store = VectorStoreService()
+def test_retrieve_policy(
+    sample_pdf,
+    ingestion_service,
+    retriever_service,
+):
+    ingestion_service.ingest(str(sample_pdf))
 
-    try:
-        store.reset()
-    except RuntimeError as e:
-        logger.warning("Vector store reset failed: %s", e)
-
-    store = VectorStoreService()
-    ingesttion = IngestionService()
-
-    ingesttion.ingest(str(sample_pdf))
-
-    retriever = RetrieverService()
-
-    chunks = retriever.retrieve("How many annual leave days do employees receive?")
+    chunks = retriever_service.retrieve("How many annual leave days do employees receive?",settings.TOP_K)
 
     print("length-------------", len(chunks))
 

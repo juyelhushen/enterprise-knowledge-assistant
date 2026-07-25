@@ -1,8 +1,8 @@
 from app.services.workflow_service import WorkflowService
 
 
-def test_workflow_service():
-    service = WorkflowService()
+def test_workflow_service(workflow):
+    service = WorkflowService(workflow)
 
     response = service.ask("How many annual leave days?")
 

@@ -21,9 +21,13 @@ class ReasoningService:
         Answer
     """
 
-    def __init__(self):
-        self.prompt_builder = PromptBuilder()
-        self.llm_service = LLMService()
+    def __init__(
+            self,
+            prompt_builder: PromptBuilder,
+            llm_service: LLMService,
+    ):
+        self.prompt_builder = prompt_builder
+        self.llm_service = llm_service
 
     def generate_answer(
         self, question: str, chunks: list[ChunkData]

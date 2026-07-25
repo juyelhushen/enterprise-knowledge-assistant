@@ -1,12 +1,16 @@
 from pathlib import Path
 
+from langchain_ollama import OllamaEmbeddings
+
+from app.core.config import settings
+from app.infrastructure.chroma_factory import ChromaFactory
 from app.ingestion.chunking_service import ChunkingService
 from app.ingestion.document_loader import DocumentLoader
+from app.mapper.document_mapper import DocumentMapper
 from app.prompts.prompt_builder import PromptBuilder
-from app.services.embedding_service import EmbeddingService
+from app.repositories.vector_store_repository import VectorStoreRepository
 from app.services.llm_service import LLMService
 from app.services.retriever_service import RetrieverService
-from app.services.vector_store_service import VectorStoreService
 from app.utils.rag_debugger import RAGDebugger
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -14,51 +18,52 @@ sample_pdf = PROJECT_ROOT / "tests" / "resources" / "sample.pdf"
 
 
 def main():
-
+    # Infrastructure
     loader = DocumentLoader()
-
-    docs = loader.load(sample_pdf)
-
-    RAGDebugger.print_documents(docs)
-
     chunker = ChunkingService()
 
-    chunks = chunker.chunk_documents(docs)
+    embedding_model = OllamaEmbeddings(
+        model=settings.EMBEDDING_MODEL,
+        base_url=settings.OLLAMA_BASE_URL,
+    )
 
+    vector_store = ChromaFactory.create(embedding_model)
+    repository = VectorStoreRepository(vector_store)
+
+    # Services
+    # embedding_service = EmbeddingService()
+    retriever = RetrieverService(repository)
+    prompt_builder = PromptBuilder()
+    llm = LLMService()
+
+    # Load & Chunk
+    docs = loader.load(sample_pdf)
+    RAGDebugger.print_documents(docs)
+
+    chunks = chunker.chunk_documents(docs)
     RAGDebugger.print_chunks(chunks)
 
-    embedding = EmbeddingService()
+    # Store
+    mappedDocs = DocumentMapper.to_documents(chunks)
+    repository.add_documents(mappedDocs)
 
-    vector = embedding.embed_text(chunks[0].content)
-
-    RAGDebugger.print_embedding(vector)
-
-    store = VectorStoreService()
-
-    # store.reset()
-
-    store.add_chunks(chunks)
-
-    retriever = RetrieverService()
-
-    retrieved = retriever.retrieve("Who won the FIFA World Cup?")
-
+    # Retrieve
+    retrieved = retriever.retrieve(
+        "Who won the FIFA World Cup?",
+        settings.TOP_K,
+    )
     RAGDebugger.print_retrieval(retrieved)
 
-    builder = PromptBuilder()
-
-    prompt = builder.build(
+    # Prompt
+    prompt = prompt_builder.build(
         "How many sick leave days?",
         retrieved,
     )
-
     RAGDebugger.print_prompt(prompt)
 
-    llm = LLMService()
-
+    # LLM
     response = llm.invoke(prompt)
-
-    RAGDebugger.print_response(response.content)
+    RAGDebugger.print_response(response)
 
 
 if __name__ == "__main__":
