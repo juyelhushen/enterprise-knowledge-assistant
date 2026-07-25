@@ -1,10 +1,10 @@
 from app.models.chunk import ChunkData
 
 
-def test_chunk_pdf(document_loader, chunker, sample_pdf):
+def test_chunk_pdf(document_loader, chunker_service, sample_pdf):
     documents = document_loader.load(str(sample_pdf))
 
-    chunks = chunker.chunk_documents(documents)
+    chunks = chunker_service.chunk_documents(documents)
 
     assert len(chunks) > 0
 

@@ -1,6 +1,5 @@
 from app.common.logger import get_logger
 from app.graph.state import GraphState
-from app.prompts.prompt_builder import PromptBuilder
 from app.services.reasoning_service import ReasoningService
 
 logger = get_logger(__name__)

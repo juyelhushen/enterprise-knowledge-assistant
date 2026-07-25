@@ -13,7 +13,7 @@ class RetrieverService:
     def retrieve(
         self,
         question: str,
-        top_k: int | None = None,
+        top_k: int = 3,
     ) -> list[ChunkData]:
         documents = self.repository.similarity_search(question, k=top_k)
 
