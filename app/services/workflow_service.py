@@ -1,5 +1,4 @@
 from app.common.logger import get_logger
-from app.graph.workflow import create_workflow
 from app.models.workflow_response import WorkflowResponse
 
 logger = get_logger(__name__)
@@ -13,8 +12,8 @@ class WorkflowService:
     the application.
     """
 
-    def __init__(self):
-        self.workflow = create_workflow()
+    def __init__(self, workflow):
+        self.workflow = workflow
 
     def ask(self, question: str) -> WorkflowResponse:
 
