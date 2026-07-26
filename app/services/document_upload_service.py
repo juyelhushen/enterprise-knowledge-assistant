@@ -34,15 +34,13 @@ class DocumentUploadService:
 
         stored_path = self.storage_service.save(file)
 
-        ingestion_result = self.ingestion_service.ingest(
-            str(stored_path),
-        )
+        ingestion_result = self.ingestion_service.ingest(stored_path)
 
         return UploadResponse(
             filename=file.filename,
             stored_filename=stored_path.name,
             documents_processed=ingestion_result.documents_processed,
             chunks_created=ingestion_result.chunks_created,
-            message="Document uploaded successfully",
+            message="Document uploaded successfully.",
         )
 

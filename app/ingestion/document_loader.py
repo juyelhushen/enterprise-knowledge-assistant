@@ -8,6 +8,7 @@ from app.models.document import DocumentData
 
 
 class DocumentLoader:
+
     def load(self, file_path: Path) -> list[DocumentData]:
         path = Path(file_path)
 

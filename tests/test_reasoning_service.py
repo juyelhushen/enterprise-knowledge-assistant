@@ -17,7 +17,7 @@ def test_generate_answer(
 ):
 
     logger.info("Loading document...")
-    documents = document_loader.load(SAMPLE_PDF)
+    documents = document_loader.load(Path(SAMPLE_PDF))
 
     logger.info("Chunking...")
     chunks = chunker_service.chunk_documents(documents)
