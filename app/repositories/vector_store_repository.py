@@ -1,6 +1,6 @@
-from langchain_core.documents import Document
-
 from app.core.config import settings
+from app.mapper.document_mapper import DocumentMapper
+from app.models.chunk import ChunkData
 
 
 class VectorStoreRepository:
@@ -10,8 +10,9 @@ class VectorStoreRepository:
     ):
         self.vector_store = vector_store
 
-    def add_documents(self, documents: list[Document]):
-        self.vector_store.add_documents(documents)
+    def add_documents(self, chunks: list[ChunkData]):
+        docs = DocumentMapper.to_documents(chunks)
+        self.vector_store.add_documents(docs)
 
 
     def similarity_search(

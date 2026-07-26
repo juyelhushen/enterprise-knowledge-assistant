@@ -17,3 +17,9 @@ class DocumentException(EnterpriseAssistantException):
 
 class ConfigurationException(EnterpriseAssistantException):
     pass
+
+class ValidationException(Exception):
+    """
+    Raised when uploaded file validation fails.
+    """
+
