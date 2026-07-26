@@ -1,5 +1,3 @@
-from app.mapper.document_mapper import DocumentMapper
-
 
 def test_similarity_search(
     document_loader,
@@ -11,9 +9,7 @@ def test_similarity_search(
 
     chunks = chunker_service.chunk_documents(documents)
 
-    docs = DocumentMapper.to_documents(chunks)
-
-    vector_store.add_documents(docs)
+    vector_store.add_documents(chunks)
 
     results = vector_store.similarity_search("How many annual leave days?")
 

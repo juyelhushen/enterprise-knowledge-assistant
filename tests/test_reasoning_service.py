@@ -1,7 +1,6 @@
 from pathlib import Path
 
 from app.common.logger import get_logger
-from app.mapper.document_mapper import DocumentMapper
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
@@ -23,9 +22,7 @@ def test_generate_answer(
     logger.info("Chunking...")
     chunks = chunker_service.chunk_documents(documents)
 
-    docs = DocumentMapper.to_documents(chunks)
-
-    vector_store_repository.add_documents(docs)
+    vector_store_repository.add_documents(chunks)
 
     logger.info("Retrieving...")
     retrieved_chunks = retriever_service.retrieve(

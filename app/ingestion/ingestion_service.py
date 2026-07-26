@@ -1,6 +1,5 @@
 from app.ingestion.chunking_service import ChunkingService
 from app.ingestion.document_loader import DocumentLoader
-from app.mapper.document_mapper import DocumentMapper
 from app.repositories.vector_store_repository import VectorStoreRepository
 
 
@@ -22,9 +21,7 @@ class IngestionService:
 
         chunks = self.chunker.chunk_documents(documents)
 
-        docs = DocumentMapper.to_documents(chunks)
-
-        self.repository.add_documents(docs)
+        self.repository.add_documents(chunks)
 
         return {
             "documents": len(documents),

@@ -6,7 +6,6 @@ from app.core.config import settings
 from app.infrastructure.chroma_factory import ChromaFactory
 from app.ingestion.chunking_service import ChunkingService
 from app.ingestion.document_loader import DocumentLoader
-from app.mapper.document_mapper import DocumentMapper
 from app.prompts.prompt_builder import PromptBuilder
 from app.repositories.vector_store_repository import VectorStoreRepository
 from app.services.llm_service import LLMService
@@ -44,8 +43,7 @@ def main():
     RAGDebugger.print_chunks(chunks)
 
     # Store
-    mappedDocs = DocumentMapper.to_documents(chunks)
-    repository.add_documents(mappedDocs)
+    repository.add_documents(chunks)
 
     # Retrieve
     retrieved = retriever.retrieve(

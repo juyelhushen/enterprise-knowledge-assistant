@@ -23,4 +23,3 @@ class ValidationException(Exception):
     Raised when uploaded file validation fails.
     """
 
-    pass
