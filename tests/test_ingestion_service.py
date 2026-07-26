@@ -8,10 +8,10 @@ def test_ingestion_pipeline(
     ingestion_service,
     vector_store_repository,
 ):
-    result = ingestion_service.ingest(str(sample_pdf))
+    result = ingestion_service.ingest(sample_pdf)
 
-    assert result["documents"] == 1
-    assert result["chunks"] > 0
+    assert result.documents_processed == 1
+    assert result.chunks_created > 0
 
     results = vector_store_repository.similarity_search(
         "annual leave",

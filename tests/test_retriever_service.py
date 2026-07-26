@@ -9,7 +9,7 @@ def test_retrieve_policy(
     ingestion_service,
     retriever_service,
 ):
-    ingestion_service.ingest(str(sample_pdf))
+    ingestion_service.ingest(sample_pdf)
 
     chunks = retriever_service.retrieve("How many annual leave days do employees receive?",settings.TOP_K)
 

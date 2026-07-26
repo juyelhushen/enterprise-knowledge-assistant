@@ -9,7 +9,7 @@ def test_rag_answers_question(
     ingestion_service,
     rag_service,
 ):
-    ingestion_service.ingest(str(sample_pdf))
+    ingestion_service.ingest(sample_pdf)
 
     answer = rag_service.answer(
         "How many annual leave days do employees receive?"

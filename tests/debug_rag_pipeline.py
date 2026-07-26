@@ -36,7 +36,7 @@ def main():
     llm = LLMService()
 
     # Load & Chunk
-    docs = loader.load(sample_pdf)
+    docs = loader.load(Path(sample_pdf))
     RAGDebugger.print_documents(docs)
 
     chunks = chunker.chunk_documents(docs)
