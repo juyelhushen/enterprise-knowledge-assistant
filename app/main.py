@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from app.api.document_controller import doc_router
 from app.api.routes import router
 from app.exceptions.custom_exceptions import (
     DocumentException,
@@ -19,6 +20,7 @@ app = FastAPI(
 )
 
 app.include_router(router)
+app.include_router(doc_router)
 
 app.add_exception_handler(LLMException, llm_exception_handler)
 
