@@ -2,12 +2,12 @@ from fastapi import APIRouter, File, UploadFile
 
 from app.dependencies.container import document_upload_service
 
-router = APIRouter(
+doc_router = APIRouter(
     prefix="/documents",
     tags=["documents"],
 )
 
-@router.post("")
+@doc_router.post("")
 async def upload_document(
         file: UploadFile = File(...),  # noqa: B008
 ):

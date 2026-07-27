@@ -1,15 +1,15 @@
 from fastapi import APIRouter
 
+from app.dependencies.container import workflow_service
 from app.models.ask_request import AskRequest
 from app.models.health_response import HealthResponse
 from app.models.readiness_response import ReadinessResponse
 from app.models.workflow_response import WorkflowResponse
 from app.services.health_service import HealthService
 from app.services.readiness_service import ReadinessService
-from app.services.workflow_service import WorkflowService
 
 router = APIRouter()
-workflow_service = WorkflowService()
+workflow = workflow_service
 
 health_service = HealthService()
 readiness_service = ReadinessService()
@@ -19,7 +19,7 @@ readiness_service = ReadinessService()
     response_model=WorkflowResponse,
 )
 def ask(request: AskRequest):
-    return workflow_service.ask(request.question)
+    return workflow.ask(request.question)
 
 
 @router.get(
