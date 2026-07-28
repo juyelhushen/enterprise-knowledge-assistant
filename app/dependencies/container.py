@@ -8,6 +8,7 @@ from app.ingestion.document_loader import DocumentLoader
 from app.ingestion.ingestion_service import IngestionService
 from app.prompts.prompt_builder import PromptBuilder
 from app.repositories.vector_store_repository import VectorStoreRepository
+from app.services.document_service import DocumentService
 from app.services.document_upload_service import DocumentUploadService
 from app.services.embedding_service import EmbeddingService
 from app.services.file_storage_service import FileStorageService
@@ -55,6 +56,13 @@ document_upload_service = DocumentUploadService(
     ingestion_service=ingestion_service,
 )
 
+document_service = DocumentService(
+    vector_store_repository,
+    file_storage_service
+)
+
+def get_document_service() -> DocumentService:
+    return document_service
 
 prompt_builder = PromptBuilder()
 

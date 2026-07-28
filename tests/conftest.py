@@ -1,18 +1,23 @@
 import logging
+from datetime import datetime, timezone
 from pathlib import Path
+from uuid import uuid4
 
 import pytest
+from fastapi.testclient import TestClient
 from langchain_ollama import OllamaEmbeddings
 
 from app.agents.citation_agent import CitationAgent
 from app.agents.reasoning_agent import ReasoningAgent
 from app.agents.retrieval_agent import RetrievalAgent
 from app.core.config import settings
+from app.dto.upload_metadata import UploadMetadata
 from app.graph.workflow import create_workflow
 from app.infrastructure.chroma_factory import ChromaFactory
 from app.ingestion.chunking_service import ChunkingService
 from app.ingestion.document_loader import DocumentLoader
 from app.ingestion.ingestion_service import IngestionService
+from app.main import app
 from app.prompts.prompt_builder import PromptBuilder
 from app.repositories.vector_store_repository import VectorStoreRepository
 from app.services.embedding_service import EmbeddingService
@@ -20,6 +25,7 @@ from app.services.llm_service import LLMService
 from app.services.rag_service import RAGService
 from app.services.reasoning_service import ReasoningService
 from app.services.retriever_service import RetrieverService
+from app.services.workflow_service import WorkflowService
 
 logger = logging.getLogger(__name__)
 
@@ -64,9 +70,22 @@ def retrieval_agent(retriever_service):
     )
 
 
+# @pytest.fixture
+# def vector_store_repository(vector_store):
+#     return VectorStoreRepository(vector_store)
+
+
 @pytest.fixture
 def vector_store_repository(vector_store):
-    return VectorStoreRepository(vector_store)
+    repository = VectorStoreRepository(vector_store)
+
+    # Clean before every test
+    repository.reset()
+
+    yield repository
+
+    # Clean after every test
+    repository.reset()
 
 
 @pytest.fixture
@@ -129,13 +148,44 @@ def citation_agent():
 
 
 @pytest.fixture
-def workflow(
-    retrieval_agent,
-    reasoning_agent,
-    citation_agent,
+def seeded_vector_store(
+    ingestion_service,
+    sample_pdf,
+    upload_metadata,
 ):
+    ingestion_service.ingest(
+        sample_pdf,
+        upload_metadata,
+    )
+
+
+@pytest.fixture
+def workflow(retrieval_agent, reasoning_agent, citation_agent, seeded_vector_store):
     return create_workflow(
         retrieval_agent,
         reasoning_agent,
         citation_agent,
     )
+
+
+@pytest.fixture
+def workflow_service(workflow):
+    return WorkflowService(workflow)
+
+
+@pytest.fixture
+def upload_metadata():
+
+    return UploadMetadata(
+        document_id=uuid4(),
+        original_filename="sample.pdf",
+        stored_filename="a1b2c3d4.pdf",
+        uploaded_at=datetime.now(timezone.utc),
+        file_size=1024,
+    )
+
+
+@pytest.fixture
+def client():
+    with TestClient(app) as client:
+        yield client
