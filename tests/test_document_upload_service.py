@@ -1,6 +1,6 @@
 import io
 from pathlib import Path
-from unittest.mock import Mock
+from unittest.mock import ANY, Mock
 
 import pytest
 from fastapi import UploadFile
@@ -73,7 +73,8 @@ async def test_upload_document_success(
     storage_service.save.assert_called_once()
 
     ingestion_service.ingest.assert_called_once_with(
-        Path("storage") / "uploaded_documents" / "1234.pdf"
+        Path("storage") / "uploaded_documents" / "1234.pdf",
+        ANY
     )
 
     assert result.filename == "employee.pdf"

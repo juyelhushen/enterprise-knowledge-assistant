@@ -14,6 +14,9 @@ class LLMException(EnterpriseAssistantException):
 class DocumentException(EnterpriseAssistantException):
     pass
 
+class DocumentNotFoundException(Exception):
+    pass
+
 
 class ConfigurationException(EnterpriseAssistantException):
     pass

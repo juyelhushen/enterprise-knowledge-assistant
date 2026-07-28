@@ -29,3 +29,13 @@ class FileStorageService:
             shutil.copyfileobj(file.file, buffer)
 
         return destination
+
+    def delete(
+        self,
+        filename: str,
+    ):
+
+        file_path = self.upload_directory / filename
+
+        if file_path.exists():
+            file_path.unlink()

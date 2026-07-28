@@ -5,13 +5,13 @@ logger = get_logger(__name__)
 
 
 def test_retrieve_policy(
-    sample_pdf,
-    ingestion_service,
-    retriever_service,
+    sample_pdf, ingestion_service, retriever_service, upload_metadata
 ):
-    ingestion_service.ingest(sample_pdf)
+    ingestion_service.ingest(sample_pdf,upload_metadata)
 
-    chunks = retriever_service.retrieve("How many annual leave days do employees receive?",settings.TOP_K)
+    chunks = retriever_service.retrieve(
+        "How many annual leave days do employees receive?", settings.TOP_K
+    )
 
     print("length-------------", len(chunks))
 

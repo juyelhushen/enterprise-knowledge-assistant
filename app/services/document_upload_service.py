@@ -1,5 +1,9 @@
+from datetime import datetime, timezone
+from uuid import uuid4
+
 from fastapi import UploadFile
 
+from app.dto.upload_metadata import UploadMetadata
 from app.ingestion.ingestion_service import IngestionService
 from app.models.upload_response import UploadResponse
 from app.services.file_storage_service import FileStorageService
@@ -34,7 +38,18 @@ class DocumentUploadService:
 
         stored_path = self.storage_service.save(file)
 
-        ingestion_result = self.ingestion_service.ingest(stored_path)
+        metadata = UploadMetadata(
+            document_id=uuid4(),
+            original_filename=file.filename,
+            stored_filename=stored_path.name,
+            uploaded_at=datetime.now(timezone.utc),
+            file_size=len(contents),
+        )
+
+        ingestion_result = self.ingestion_service.ingest(
+            stored_path,
+            metadata
+        )
 
         return UploadResponse(
             filename=file.filename,
