@@ -7,6 +7,7 @@ from app.dependencies.container import (
     get_document_service,
 )
 from app.models.document_summary import DocumentSummary
+from app.models.upload_response import UploadResponse
 from app.services.document_service import DocumentService
 
 doc_router = APIRouter(
@@ -14,12 +15,16 @@ doc_router = APIRouter(
     tags=["Documents"],
 )
 
-@doc_router.post("")
+
+@doc_router.post(
+    "",
+    status_code=status.HTTP_201_CREATED,
+    response_model=UploadResponse,
+)
 async def upload_document(
-        file: UploadFile = File(...),  # noqa: B008
+    file: UploadFile = File(...),  # noqa: B008
 ):
     return await document_upload_service.upload(file)
-
 
 
 @doc_router.get(
@@ -64,6 +69,4 @@ def delete_document(
 ):
     service.delete_document(document_id)
 
-    return Response(
-        status_code=status.HTTP_204_NO_CONTENT
-    )
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

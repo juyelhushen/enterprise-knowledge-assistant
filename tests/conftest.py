@@ -1,6 +1,7 @@
 import logging
 from datetime import datetime, timezone
 from pathlib import Path
+from unittest.mock import Mock
 from uuid import uuid4
 
 import pytest
@@ -11,6 +12,7 @@ from app.agents.citation_agent import CitationAgent
 from app.agents.reasoning_agent import ReasoningAgent
 from app.agents.retrieval_agent import RetrievalAgent
 from app.core.config import settings
+from app.dependencies.container import get_audit_log_repository
 from app.dto.upload_metadata import UploadMetadata
 from app.graph.workflow import create_workflow
 from app.infrastructure.chroma_factory import ChromaFactory
@@ -20,6 +22,7 @@ from app.ingestion.ingestion_service import IngestionService
 from app.main import app
 from app.prompts.prompt_builder import PromptBuilder
 from app.repositories.vector_store_repository import VectorStoreRepository
+from app.services.audit_log_service import AuditLogService
 from app.services.embedding_service import EmbeddingService
 from app.services.llm_service import LLMService
 from app.services.rag_service import RAGService
@@ -170,7 +173,9 @@ def workflow(retrieval_agent, reasoning_agent, citation_agent, seeded_vector_sto
 
 @pytest.fixture
 def workflow_service(workflow):
-    return WorkflowService(workflow)
+    return WorkflowService(
+        workflow
+    )
 
 
 @pytest.fixture
@@ -189,3 +194,37 @@ def upload_metadata():
 def client():
     with TestClient(app) as client:
         yield client
+
+
+# audit
+@pytest.fixture
+def mock_repository():
+    return Mock()
+
+
+@pytest.fixture
+def audit_log_service(mock_repository):
+    return AuditLogService(
+        repository=mock_repository,
+    )
+
+
+@pytest.fixture(autouse=True)
+def clean_audit_logs():
+    repository = get_audit_log_repository()
+    repository.clear()
+
+    yield
+
+    repository.clear()
+
+
+@pytest.fixture(autouse=True)
+def clean_test_data(vector_store_repository):
+    get_audit_log_repository().clear()
+    vector_store_repository.reset()
+
+    yield
+
+    get_audit_log_repository().clear()
+    vector_store_repository.reset()

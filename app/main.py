@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from app.api.audit_log_controller import audit_router
 from app.api.document_controller import doc_router
 from app.api.routes import router
 from app.exceptions.custom_exceptions import (
@@ -21,6 +22,8 @@ app = FastAPI(
 
 app.include_router(router)
 app.include_router(doc_router)
+
+app.include_router(audit_router)
 
 app.add_exception_handler(LLMException, llm_exception_handler)
 
