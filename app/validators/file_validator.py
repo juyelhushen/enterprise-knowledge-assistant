@@ -1,7 +1,10 @@
 from pathlib import Path
 
 from app.core.config import settings
-from app.exceptions.custom_exceptions import ValidationException
+from app.exceptions.custom_exceptions import (
+    FileValidationException,
+    ValidationException,
+)
 
 
 class FileValidator:
@@ -20,8 +23,8 @@ class FileValidator:
         extension = Path(filename).suffix.lower().replace(".","")
 
         if extension not in settings.ALLOWED_EXTENSIONS:
-            raise ValidationException(
-                f"Unsupported file type: {extension}"
+            raise FileValidationException(
+                "Unsupported file type. Allowed types: pdf, docx, txt."
             )
 
     def validate_size(self, size:int) -> None:

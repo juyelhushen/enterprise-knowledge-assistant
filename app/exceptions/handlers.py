@@ -1,10 +1,12 @@
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timezone
 
 from fastapi import Request
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
 from app.exceptions.custom_exceptions import (
     DocumentException,
+    FileValidationException,
     LLMException,
     RetrievalException,
 )
@@ -33,6 +35,24 @@ async def retrieval_exception_handler(request: Request, exc: RetrievalException)
     )
 
     return JSONResponse(status_code=500, content=response.model_dump(mode="json"))
+
+
+async def handle_file_validation(
+    request: Request,
+    exc: FileValidationException,
+):
+    return JSONResponse(
+        status_code=400,
+        content=jsonable_encoder(
+            ErrorResponse(
+                timestamp=datetime.now(timezone.utc),
+                status=400,
+                error="Bad Request",
+                message=exc.message,
+                path=request.url.path,
+            )
+        ),
+    )
 
 
 async def document_exception_handler(request: Request, exc: DocumentException):
