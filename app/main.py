@@ -5,12 +5,14 @@ from app.api.document_controller import doc_router
 from app.api.routes import router
 from app.exceptions.custom_exceptions import (
     DocumentException,
+    FileValidationException,
     LLMException,
     RetrievalException,
 )
 from app.exceptions.handlers import (
     document_exception_handler,
     generic_exception_handler,
+    handle_file_validation,
     llm_exception_handler,
     retrieval_exception_handler,
 )
@@ -30,5 +32,7 @@ app.add_exception_handler(LLMException, llm_exception_handler)
 app.add_exception_handler(RetrievalException, retrieval_exception_handler)
 
 app.add_exception_handler(DocumentException, document_exception_handler)
+
+app.add_exception_handler(FileValidationException, handle_file_validation)
 
 app.add_exception_handler(Exception, generic_exception_handler)

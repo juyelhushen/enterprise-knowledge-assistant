@@ -1,6 +1,9 @@
 import pytest
 
-from app.exceptions.custom_exceptions import ValidationException
+from app.exceptions.custom_exceptions import (
+    FileValidationException,
+    ValidationException,
+)
 from app.validators.file_validator import FileValidator
 
 
@@ -34,7 +37,7 @@ class TestDocumentValidator:
         validator,
         filename,
     ):
-        with pytest.raises(ValidationException):
+        with pytest.raises(FileValidationException):
             validator.validate(filename, 1024)
 
     def test_should_raise_exception_when_filename_is_empty(self, validator):

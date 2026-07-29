@@ -26,3 +26,8 @@ class ValidationException(Exception):
     Raised when uploaded file validation fails.
     """
 
+class FileValidationException(Exception):
+
+    def __init__(self, message: str):
+        self.message = message
+
