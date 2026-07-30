@@ -12,3 +12,4 @@ DEFAULT_COLLECTION_NAME = "enterprise_documents"
 MAX_QUERY_LENGTH = 1000
 
 UNKNOWN_RESPONSE = "I couldn't find relevant information in the provided documents."
+NO_ANSWER_FOUND = "I don't have enough information to answer that."
