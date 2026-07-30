@@ -42,7 +42,7 @@ class WorkflowService:
         self.audit_log_service.log(
             question=question,
             answer=state["answer"],
-            citations=state["citations"],
+            citations=state.get("citations", []),
             retrieved_chunks=len(state["retrieved_chunks"]),
             latency_ms=latency_ms,
         )
@@ -54,5 +54,5 @@ class WorkflowService:
 
         return WorkflowResponse(
             answer=state["answer"],
-            citations=state["citations"],
+            citations=state.get("citations", [])
         )

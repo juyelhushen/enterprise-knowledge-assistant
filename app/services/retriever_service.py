@@ -1,3 +1,4 @@
+from app.core.config import settings
 from app.models.chunk import ChunkData
 from app.repositories.vector_store_repository import VectorStoreRepository
 
@@ -13,7 +14,7 @@ class RetrieverService:
     def retrieve(
         self,
         question: str,
-        top_k: int = 3,
+        top_k: int = settings.TOP_K,
     ) -> list[ChunkData]:
         documents = self.repository.similarity_search(question, k=top_k)
 
