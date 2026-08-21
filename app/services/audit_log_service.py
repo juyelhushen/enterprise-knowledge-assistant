@@ -6,7 +6,6 @@ from app.repositories.audit_log_repository import AuditLogRepository
 
 
 class AuditLogService:
-
     def __init__(
         self,
         repository: AuditLogRepository,
@@ -22,10 +21,7 @@ class AuditLogService:
         latency_ms: int,
     ) -> None:
 
-        sources = [
-            citation["source"]
-            for citation in citations
-        ]
+        sources = [citation["source"] for citation in citations]
 
         audit_log = AuditLog(
             question=question,
@@ -46,4 +42,3 @@ class AuditLogService:
 
     def clear_logs(self) -> None:
         self.repository.clear()
-

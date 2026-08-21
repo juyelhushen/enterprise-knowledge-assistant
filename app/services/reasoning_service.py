@@ -22,9 +22,9 @@ class ReasoningService:
     """
 
     def __init__(
-            self,
-            prompt_builder: PromptBuilder,
-            llm_service: LLMService,
+        self,
+        prompt_builder: PromptBuilder,
+        llm_service: LLMService,
     ):
         self.prompt_builder = prompt_builder
         self.llm_service = llm_service

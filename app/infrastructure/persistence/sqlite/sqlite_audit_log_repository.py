@@ -8,7 +8,6 @@ from app.repositories.audit_log_repository import AuditLogRepository
 
 
 class SQLiteAuditLogRepository(AuditLogRepository):
-
     def __init__(
         self,
         database_path: Path,
@@ -71,7 +70,6 @@ class SQLiteAuditLogRepository(AuditLogRepository):
 
         self.connection.commit()
 
-
     def find_all(self):
 
         cursor = self.connection.execute("""
@@ -107,5 +105,3 @@ class SQLiteAuditLogRepository(AuditLogRepository):
         self.connection.execute("DELETE FROM audit_logs")
 
         self.connection.commit()
-
-

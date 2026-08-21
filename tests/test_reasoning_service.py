@@ -8,6 +8,7 @@ SAMPLE_PDF = PROJECT_ROOT / "tests" / "resources" / "sample.pdf"
 
 logger = get_logger(__name__)
 
+
 def test_generate_answer(
     document_loader,
     chunker_service,
@@ -25,9 +26,7 @@ def test_generate_answer(
     vector_store_repository.add_documents(chunks)
 
     logger.info("Retrieving...")
-    retrieved_chunks = retriever_service.retrieve(
-        "How many annual leave days?"
-    )
+    retrieved_chunks = retriever_service.retrieve("How many annual leave days?")
 
     assert len(retrieved_chunks) > 0
 

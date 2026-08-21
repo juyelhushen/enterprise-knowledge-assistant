@@ -4,11 +4,11 @@ from app.services.retriever_service import RetrieverService
 
 logger = get_logger(__name__)
 
-class RetrievalAgent:
 
+class RetrievalAgent:
     def __init__(
-            self,
-            retriever: RetrieverService,
+        self,
+        retriever: RetrieverService,
     ):
         self.retriever = retriever
 

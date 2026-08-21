@@ -45,17 +45,11 @@ def test_get_document(
 
     document_id = documents[0]["document_id"]
 
-    response = client.get(
-        f"/documents/{document_id}"
-    )
+    response = client.get(f"/documents/{document_id}")
 
     assert response.status_code == 200
 
-    assert (
-        response.json()["document_id"]
-        == document_id
-    )
-
+    assert response.json()["document_id"] == document_id
 
 
 def test_delete_document(
@@ -78,17 +72,14 @@ def test_delete_document(
 
     document_id = documents[0]["document_id"]
 
-    response = client.delete(
-        f"/documents/{document_id}"
-    )
+    response = client.delete(f"/documents/{document_id}")
 
     assert response.status_code == 204
 
-    response = client.get(
-        f"/documents/{document_id}"
-    )
+    response = client.get(f"/documents/{document_id}")
 
     assert response.status_code == 404
+
 
 def test_delete_document_removes_embeddings(
     client,
@@ -111,9 +102,7 @@ def test_delete_document_removes_embeddings(
 
     document_id = documents[0]["document_id"]
 
-    client.delete(
-        f"/documents/{document_id}"
-    )
+    client.delete(f"/documents/{document_id}")
 
     results = vector_store_repository.similarity_search(
         "annual leave",

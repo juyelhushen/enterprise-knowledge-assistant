@@ -4,8 +4,8 @@ from app.services.reasoning_service import ReasoningService
 
 logger = get_logger(__name__)
 
-class ReasoningAgent:
 
+class ReasoningAgent:
     def __init__(
         self,
         reasoning_service: ReasoningService,

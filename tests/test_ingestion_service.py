@@ -30,29 +30,18 @@ def test_ingestion_enriches_document_metadata(
         upload_metadata,
     )
 
-    stored = (
-        vector_store_repository.vector_store.get(
-            include=["metadatas"],
-        )
+    stored = vector_store_repository.vector_store.get(
+        include=["metadatas"],
     )
 
     metadata = stored["metadatas"][0]
 
     assert metadata["document_id"] == str(upload_metadata.document_id)
 
-    assert (
-        metadata["original_filename"]
-        == upload_metadata.original_filename
-    )
+    assert metadata["original_filename"] == upload_metadata.original_filename
 
-    assert (
-        metadata["stored_filename"]
-        == upload_metadata.stored_filename
-    )
+    assert metadata["stored_filename"] == upload_metadata.stored_filename
 
-    assert (
-        metadata["file_size"]
-        == upload_metadata.file_size
-    )
+    assert metadata["file_size"] == upload_metadata.file_size
 
     assert "uploaded_at" in metadata

@@ -1,9 +1,5 @@
 def test_similarity_search(
-    document_loader,
-        chunker_service,
-        vector_store,
-        sample_pdf,
-        vector_store_repository
+    document_loader, chunker_service, vector_store, sample_pdf, vector_store_repository
 ):
     documents = document_loader.load(sample_pdf)
 

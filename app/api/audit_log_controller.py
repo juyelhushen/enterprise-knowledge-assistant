@@ -26,7 +26,6 @@ def get_logs(
     return service.get_logs()
 
 
-
 @audit_router.delete(
     "",
     status_code=status.HTTP_204_NO_CONTENT,
@@ -40,7 +39,4 @@ def clear_logs(
 
     service.clear_logs()
 
-    return Response(
-        status_code=status.HTTP_204_NO_CONTENT
-    )
-
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

@@ -4,7 +4,6 @@ from app.core.config import settings
 
 
 class ChromaFactory:
-
     COLLECTION_NAME = "enterprise_documents"
 
     @staticmethod

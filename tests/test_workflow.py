@@ -2,9 +2,8 @@ from app.common.logger import get_logger
 
 logger = get_logger(__name__)
 
-def test_workflow(
-        workflow
-):
+
+def test_workflow(workflow):
     result = workflow.invoke({"question": "How many annual leave days?"})
 
     print("\n========== RESULT ==========\n")

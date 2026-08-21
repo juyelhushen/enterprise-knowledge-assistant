@@ -8,7 +8,6 @@ from app.validators.file_validator import FileValidator
 
 
 class TestDocumentValidator:
-
     @pytest.fixture
     def validator(self):
         return FileValidator()
