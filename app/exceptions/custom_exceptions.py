@@ -14,6 +14,7 @@ class LLMException(EnterpriseAssistantException):
 class DocumentException(EnterpriseAssistantException):
     pass
 
+
 class DocumentNotFoundException(Exception):
     pass
 
@@ -21,13 +22,13 @@ class DocumentNotFoundException(Exception):
 class ConfigurationException(EnterpriseAssistantException):
     pass
 
+
 class ValidationException(Exception):
     """
     Raised when uploaded file validation fails.
     """
 
-class FileValidationException(Exception):
 
+class FileValidationException(Exception):
     def __init__(self, message: str):
         self.message = message
-

@@ -36,6 +36,7 @@ def upload_service(
         ingestion_service=ingestion_service,
     )
 
+
 def create_upload_file(
     filename: str = "employee.pdf",
     content: bytes = b"sample pdf",
@@ -57,9 +58,7 @@ async def test_upload_document_success(
 
     upload_file = create_upload_file()
 
-    storage_service.save.return_value = Path(
-        "storage/uploaded_documents/1234.pdf"
-    )
+    storage_service.save.return_value = Path("storage/uploaded_documents/1234.pdf")
 
     ingestion_service.ingest.return_value = IngestionResult(
         documents_processed=1,
@@ -73,8 +72,7 @@ async def test_upload_document_success(
     storage_service.save.assert_called_once()
 
     ingestion_service.ingest.assert_called_once_with(
-        Path("storage") / "uploaded_documents" / "1234.pdf",
-        ANY
+        Path("storage") / "uploaded_documents" / "1234.pdf", ANY
     )
 
     assert result.filename == "employee.pdf"
@@ -86,6 +84,7 @@ async def test_upload_document_success(
     assert result.chunks_created == 15
 
     assert result.message == "Document uploaded successfully."
+
 
 @pytest.mark.asyncio
 async def test_validation_failure_stops_processing(
@@ -117,9 +116,7 @@ async def test_storage_failure(
 
     upload_file = create_upload_file()
 
-    storage_service.save.side_effect = OSError(
-        "Disk Full"
-    )
+    storage_service.save.side_effect = OSError("Disk Full")
 
     with pytest.raises(OSError):
         await upload_service.upload(upload_file)
@@ -127,6 +124,7 @@ async def test_storage_failure(
     validator.validate.assert_called_once()
 
     ingestion_service.ingest.assert_not_called()
+
 
 @pytest.mark.asyncio
 async def test_ingestion_failure(
@@ -138,13 +136,9 @@ async def test_ingestion_failure(
 
     upload_file = create_upload_file()
 
-    storage_service.save.return_value = Path(
-        "storage/uploaded_documents/1234.pdf"
-    )
+    storage_service.save.return_value = Path("storage/uploaded_documents/1234.pdf")
 
-    ingestion_service.ingest.side_effect = RuntimeError(
-        "Embedding Failed"
-    )
+    ingestion_service.ingest.side_effect = RuntimeError("Embedding Failed")
 
     with pytest.raises(RuntimeError):
         await upload_service.upload(upload_file)
@@ -155,6 +149,7 @@ async def test_ingestion_failure(
 
     ingestion_service.ingest.assert_called_once()
 
+
 @pytest.mark.asyncio
 async def test_file_pointer_is_reset_before_storage(
     upload_service,
@@ -163,13 +158,9 @@ async def test_file_pointer_is_reset_before_storage(
     ingestion_service,
 ):
 
-    upload_file = create_upload_file(
-        content=b"Hello World"
-    )
+    upload_file = create_upload_file(content=b"Hello World")
 
-    storage_service.save.return_value = Path(
-        "storage/uploaded_documents/1234.pdf"
-    )
+    storage_service.save.return_value = Path("storage/uploaded_documents/1234.pdf")
 
     ingestion_service.ingest.return_value = IngestionResult(
         documents_processed=1,

@@ -11,21 +11,17 @@ from app.validators.file_validator import FileValidator
 
 
 class DocumentUploadService:
-
     def __init__(
-            self,
-            validator: FileValidator,
-            storage_service: FileStorageService,
-            ingestion_service: IngestionService,
+        self,
+        validator: FileValidator,
+        storage_service: FileStorageService,
+        ingestion_service: IngestionService,
     ):
         self.validator = validator
         self.storage_service = storage_service
         self.ingestion_service = ingestion_service
 
-    async def upload(
-            self,
-            file: UploadFile
-    ) -> UploadResponse:
+    async def upload(self, file: UploadFile) -> UploadResponse:
 
         contents = await file.read()
 
@@ -46,10 +42,7 @@ class DocumentUploadService:
             file_size=len(contents),
         )
 
-        ingestion_result = self.ingestion_service.ingest(
-            stored_path,
-            metadata
-        )
+        ingestion_result = self.ingestion_service.ingest(stored_path, metadata)
 
         return UploadResponse(
             filename=file.filename,
@@ -58,4 +51,3 @@ class DocumentUploadService:
             chunks_created=ingestion_result.chunks_created,
             message="Document uploaded successfully.",
         )
-

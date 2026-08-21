@@ -3,7 +3,6 @@ from app.models.audit_log import AuditLog
 
 
 class AuditLogMapper:
-
     @staticmethod
     def to_response(
         audit_log: AuditLog,

@@ -173,9 +173,7 @@ def workflow(retrieval_agent, reasoning_agent, citation_agent, seeded_vector_sto
 
 @pytest.fixture
 def workflow_service(workflow):
-    return WorkflowService(
-        workflow
-    )
+    return WorkflowService(workflow)
 
 
 @pytest.fixture

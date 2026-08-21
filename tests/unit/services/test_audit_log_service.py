@@ -37,6 +37,7 @@ def test_log_saves_audit_record(
     assert saved_log.latency_ms == 150
     assert saved_log.created_at is not None
 
+
 def test_get_logs_returns_repository_results(
     audit_log_service,
     mock_repository,
@@ -75,6 +76,7 @@ def test_clear_logs_calls_repository(
     audit_log_service.clear_logs()
     mock_repository.clear.assert_called_once_with()
 
+
 def test_get_logs_returns_empty_list(
     audit_log_service,
     mock_repository,
@@ -95,7 +97,7 @@ def test_log_propagates_repository_exception(
         audit_log_service.log(
             question="Question",
             answer="Answer",
-            citations=[],      # ✅ new API
+            citations=[],  # ✅ new API
             retrieved_chunks=0,
             latency_ms=10,
         )

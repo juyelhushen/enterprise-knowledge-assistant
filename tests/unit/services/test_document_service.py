@@ -95,9 +95,7 @@ def test_delete_document_success(
 
     repository.delete_document.assert_called_once_with("doc-123")
 
-    storage_service.delete.assert_called_once_with(
-        document_summary.stored_filename
-    )
+    storage_service.delete.assert_called_once_with(document_summary.stored_filename)
 
 
 def test_delete_document_not_found(
@@ -129,6 +127,4 @@ def test_delete_document_calls_repository_before_storage(
     document_service.delete_document("doc-123")
 
     repository.delete_document.assert_called_once_with("doc-123")
-    storage_service.delete.assert_called_once_with(
-        document_summary.stored_filename
-    )
+    storage_service.delete.assert_called_once_with(document_summary.stored_filename)

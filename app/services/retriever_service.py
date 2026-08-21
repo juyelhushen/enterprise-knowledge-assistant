@@ -4,11 +4,7 @@ from app.repositories.vector_store_repository import VectorStoreRepository
 
 
 class RetrieverService:
-
-    def __init__(
-            self,
-            repository: VectorStoreRepository
-    ):
+    def __init__(self, repository: VectorStoreRepository):
         self.repository = repository
 
     def retrieve(
@@ -16,6 +12,7 @@ class RetrieverService:
         question: str,
         top_k: int = settings.TOP_K,
     ) -> list[ChunkData]:
+
         documents = self.repository.similarity_search(question, k=top_k)
 
         chunks = []

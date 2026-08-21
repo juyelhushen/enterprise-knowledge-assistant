@@ -8,10 +8,9 @@ from app.exceptions.custom_exceptions import (
 
 
 class FileValidator:
-
     def validate_filename(
-            self,
-            filename: str,
+        self,
+        filename: str,
     ) -> None:
         """
         Validates the uploaded filename
@@ -20,18 +19,18 @@ class FileValidator:
         if not filename:
             raise ValidationException("Filename is required")
 
-        extension = Path(filename).suffix.lower().replace(".","")
+        extension = Path(filename).suffix.lower().replace(".", "")
 
         if extension not in settings.ALLOWED_EXTENSIONS:
             raise FileValidationException(
                 "Unsupported file type. Allowed types: pdf, docx, txt."
             )
 
-    def validate_size(self, size:int) -> None:
+    def validate_size(self, size: int) -> None:
         """
         Validates the uploaded size
         """
-        
+
         max_bytes = settings.MAX_UPLOAD_SIZE_MB * 1024 * 1024
         if size > max_bytes:
             raise ValidationException(f"File exceeds {settings.MAX_UPLOAD_SIZE_MB} MB.")

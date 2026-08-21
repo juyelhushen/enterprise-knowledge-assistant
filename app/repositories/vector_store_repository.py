@@ -7,10 +7,7 @@ from app.models.document_summary import DocumentSummary
 
 
 class VectorStoreRepository:
-    def __init__(
-        self,
-        vector_store
-    ):
+    def __init__(self, vector_store):
         self.vector_store = vector_store
 
     def add_documents(self, chunks: list[ChunkData]):
@@ -21,21 +18,10 @@ class VectorStoreRepository:
         response = self.vector_store.get(include=["metadatas"])
         return response["metadatas"]
 
+    def similarity_search(self, query: str, k: settings.TOP_K):
+        return self.vector_store.similarity_search(query, k=k)
 
-    def similarity_search(
-            self,
-            query: str,
-            k: settings.TOP_K
-    ):
-        return self.vector_store.similarity_search(
-            query,
-            k=k
-        )
-
-    def delete(
-            self,
-            ids: list[str]
-    ):
+    def delete(self, ids: list[str]):
         self.vector_store.delete(ids=ids)
 
     def reset(self):
@@ -46,10 +32,10 @@ class VectorStoreRepository:
             self.vector_store.delete(ids=ids)
 
     # def reset(self):
-        # self.vector_store.delete_collection()
-        # self.vector_store.delete(ids=self.vector_store.get()["ids"])
+    # self.vector_store.delete_collection()
+    # self.vector_store.delete(ids=self.vector_store.get()["ids"])
 
-        # self.vector_store = ChromaFactory.create(self.vector_store._embedding_function)
+    # self.vector_store = ChromaFactory.create(self.vector_store._embedding_function)
 
     def get_all_documents(self) -> list[DocumentSummary]:
 
@@ -82,7 +68,6 @@ class VectorStoreRepository:
             reverse=True,
         )
 
-
     def get_document(
         self,
         document_id: str,
@@ -95,7 +80,6 @@ class VectorStoreRepository:
                 return document
 
         return None
-
 
     def delete_document(
         self,

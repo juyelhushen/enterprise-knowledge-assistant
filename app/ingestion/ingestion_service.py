@@ -8,21 +8,18 @@ from app.repositories.vector_store_repository import VectorStoreRepository
 
 
 class IngestionService:
-
     def __init__(
         self,
         loader: DocumentLoader,
         chunker: ChunkingService,
-        repository: VectorStoreRepository
+        repository: VectorStoreRepository,
     ):
         self.loader = loader
         self.chunker = chunker
         self.repository = repository
 
     def ingest(
-            self,
-            file_path: Path,
-            upload_metadata: UploadMetadata
+        self, file_path: Path, upload_metadata: UploadMetadata
     ) -> IngestionResult:
 
         documents = self.loader.load(file_path)
@@ -39,6 +36,5 @@ class IngestionService:
         self.repository.add_documents(chunks)
 
         return IngestionResult(
-            documents_processed=len(documents),
-            chunks_created=len(chunks)
+            documents_processed=len(documents), chunks_created=len(chunks)
         )

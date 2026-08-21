@@ -4,7 +4,6 @@ from app.core.config import settings
 
 
 class EmbeddingService:
-
     def __init__(self):
         self.embedding_model = OllamaEmbeddings(
             model=settings.EMBEDDING_MODEL, base_url=settings.OLLAMA_BASE_URL

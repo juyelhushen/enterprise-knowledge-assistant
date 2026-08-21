@@ -4,7 +4,6 @@ from app.models.chunk import ChunkData
 
 
 class DocumentMapper:
-
     @staticmethod
     def to_documents(
         chunks: list[ChunkData],

@@ -1,10 +1,9 @@
 def ask_question(client, question: str):
     return client.post(
         "/ask",
-        json={
-            "question": question
-        },
+        json={"question": question},
     )
+
 
 def test_get_logs_returns_workflow_logs(
     client,
@@ -121,6 +120,7 @@ def test_logs_are_returned_in_descending_order(
     assert logs[1]["question"] == "Question B"
 
     assert logs[2]["question"] == "Question A"
+
 
 def test_get_logs_returns_empty_list_when_no_logs_exist(
     client,

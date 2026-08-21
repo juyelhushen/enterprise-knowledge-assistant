@@ -807,6 +807,30 @@ http://localhost:8000/docs
 
 ---
 
+# Run Streamlit UI
+
+Install Streamlit:
+
+```bash
+pip install streamlit
+```
+
+After starting the FastAPI backend, run:
+
+```bash
+streamlit run ui/streamlit_app.py
+```
+
+Streamlit UI:
+
+```
+http://localhost:8501
+```
+
+If your API is not running on `http://localhost:8000`, update the base URL in the Streamlit sidebar.
+
+---
+
 # API Endpoints
 
 ## Upload Document

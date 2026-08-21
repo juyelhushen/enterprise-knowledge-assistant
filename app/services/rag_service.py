@@ -5,10 +5,10 @@ from app.services.retriever_service import RetrieverService
 
 class RAGService:
     def __init__(
-            self,
-            retriever: RetrieverService,
-            prompt_builder: PromptBuilder,
-            llm_service: LLMService,
+        self,
+        retriever: RetrieverService,
+        prompt_builder: PromptBuilder,
+        llm_service: LLMService,
     ):
         self.retriever = retriever
         self.prompt_builder = prompt_builder

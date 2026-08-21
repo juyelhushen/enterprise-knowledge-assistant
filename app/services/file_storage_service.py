@@ -8,7 +8,6 @@ from app.core.config import settings
 
 
 class FileStorageService:
-
     def __init__(self):
         self.upload_directory = Path(settings.UPLOAD_DIRECTORY)
         self.upload_directory.mkdir(parents=True, exist_ok=True)

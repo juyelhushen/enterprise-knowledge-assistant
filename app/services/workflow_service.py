@@ -23,10 +23,7 @@ class WorkflowService:
         self.workflow = workflow
         self.audit_log_service = audit_log_service
 
-    def ask(
-            self,
-            question: str
-    ) -> WorkflowResponse:
+    def ask(self, question: str) -> WorkflowResponse:
 
         logger.info("Workflow started")
 
@@ -53,6 +50,5 @@ class WorkflowService:
         )
 
         return WorkflowResponse(
-            answer=state["answer"],
-            citations=state.get("citations", [])
+            answer=state["answer"], citations=state.get("citations", [])
         )
